@@ -2,6 +2,7 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import CesiumRequestForm from './cesium';
 
+
 class CesiumServiceWidget extends React.Component{
 
   constructor(){
@@ -9,21 +10,18 @@ class CesiumServiceWidget extends React.Component{
       this.state = {
         showModal : false
       }
-
-      this.handleOpen = this.handleOpen.bind(this);
-      this.handleClose = this.handleClose.bind(this);
     }
 
-  handleOpen(){
+  handleOpen = () => {
     this.setState({
       showModal: true
     });
   }
 
-  handleClose(){
+  handleClose = () => {
     this.setState({
       showModal: false
-    })
+    });
   }
 
   render(){
@@ -31,7 +29,9 @@ class CesiumServiceWidget extends React.Component{
       return (
         <div>
           <ReactModal isOpen={this.state.showModal}>
-              //<CesiumRequestForm/>
+              <div>
+                <CesiumRequestForm />
+              </div>
             <button onClick={this.handleClose} > Close </button>
           </ReactModal>
         </div>
@@ -42,10 +42,8 @@ class CesiumServiceWidget extends React.Component{
         <div id="cesium-service-widget">
           <button onClick={this.handleOpen}> Cesium Service </button>
           </div>
-
         );
     }
   }
 }
-
 export default CesiumServiceWidget;
