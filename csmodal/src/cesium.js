@@ -20,18 +20,27 @@ class CesiumRequestForm extends React.Component{
   constructor(){
     super();
     this.state = {
-        services : false,
-        selectedService: null,
+        service : null,
         requestData : null,
         userInput : [],
     };
   }
 
 
-componentWillMount(props){
-  this.serviceListRequest();
+componentWillMount(){
+  console.log(this.props.chosen);
+  this.setState({service: this.props.service});
+  this.serviceSchemaRequest();
+
 }
 
+serviceSchemaRequest = () => {
+  /*Query backend to obtain schema for this.state.service*/
+  /* Hard coded for now*/
+  this.setState({
+    requestData: data
+  })
+}
 handleChange = (e) => {
 
   let newUserInput = this.state.userInput;
@@ -45,58 +54,48 @@ handleChange = (e) => {
 
 handleSubmit = (e) => {
 
-
   e.preventDefault();
-}
-
-serviceListRequest = () => {
-  /* Sends request to populate allowed list of services. Simulating that for now. */
-  console.log('serviceListRequest')
-  this.setState({
-    selectedService : data.service,
-    requestData : data,
-    services : true,
-  })
 }
 
 
 formFromFields = (data) => {
-  let i;
-   // generates form elements from fields
-  console.log(data);
-  data = data.schema;
 
   let rows = [];
 
-   for(i = 0; i < data.length; i++){
+   data.schema.map((row) => {
      rows.push(
-      <div>
-        <label> {data[i].label} </label>
-        <input type="text" name={data[i].key} key={data[i].key} /> 
-      </div>
-      );
-   }
-   return rows;
+       <div>
+         <label> {row.label} </label>
+         <input type="text" name={row.key} key={row.key} />
+       </div>
+
+     );
+   });
+
+  if (data.schema.length){
+      rows.push(<input type="submit" onSubmit={this.handleSubmit} />);
+  }
+
+  return rows;
 
 };
 
-render(){
 
-        if (this.state.selectedService) {
+render(){
+        /*If service isn't selected yet, render blank select box*/
+        if (this.state.service) {
             console.log(this.state.requestData);
             return (
             <div>
             {this.formFromFields(this.state.requestData)}
             </div>
-          )
+          );
         }
         else{
-
+          return <div> </div>
         }
 
-      return (
-        <div> </div>
-      );
+
   }
 }
 
