@@ -12,7 +12,6 @@ class ServiceListForm extends React.Component{
 
     constructor(props){
       super(props);
-      console.log('here');
       this.state = {
         isSelected : false,
         services : [],
@@ -40,8 +39,6 @@ class ServiceListForm extends React.Component{
     }
 
     handleChange = (option) => {
-      console.log('chosen', option);
-      console.log(this.state.services);
       this.setState({
         chosen : option,
       });
