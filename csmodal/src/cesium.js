@@ -51,17 +51,9 @@ class CesiumRequestForm extends React.Component{
 
 
 componentWillMount(){
-  console.log(this.props.chosen);
   this.setState({service: this.props.service && this.props.service.value});
   this.serviceSchemaRequest();
 
-}
-
-componentWillReceiveProps(props){
-  console.log(props, this.state);
-  this.setState({
-    service: props.service && props.service.value
-  });
 }
 
 serviceSchemaRequest = () => {
@@ -79,7 +71,6 @@ handleSubmit = (e) => {
 }
 
 handleChange = (e) => {
-  console.log(e.target.name, e.target.value);
   let formData = this.state.formData;
   formData[e.target.name] = e.target.value
   this.setState({
@@ -91,13 +82,10 @@ formFromFields = (data, service) => {
 
   service = service && service.value;
   let rows = [];
-  console.log(data, service);
   data = service && data[service];
-  console.log(data);
+ 
   if(data){
-    
-    console.log(data.fields);
-    data.fields.map((row) => {
+        data.fields.map((row) => {
         rows.push(
         <div>
           <label> {row.label} </label>
@@ -118,9 +106,7 @@ formFromFields = (data, service) => {
 
 
 render(){
-        /*If service isn't selected yet, render blank select box*/
        
-  console.log(this.state.requestData);
   return (
     <div>
         <form onSubmit = {this.handleSubmit}>

@@ -2,12 +2,14 @@ import React from 'react';
 import ReactModal from 'react-modal';
 import ServiceListForm from './serviceList';
 
-let services = [
-  'areacheck',
-  'snpull',
-];
+
 
 class CesiumServiceWidget extends React.Component{
+
+  services = [
+    'areacheck',
+    'snpull',
+  ];
 
   constructor(){
       super();
@@ -33,33 +35,27 @@ class CesiumServiceWidget extends React.Component{
 
   }
 
-  componentWillMount = (props) => {
+  componentWillMount = () => {
       /* Query backend for list of available services */
       /* Return canned response meanwhile */
 
-      this.setState({services: services});
+      this.setState({services: this.services});
   }
 
   render(){
-    if (this.state.showModal){
       return (
-        <div>
+        <div className="modal">
           <ReactModal isOpen={this.state.showModal}>
-              <div>
+              <div id="service-list">
                 <ServiceListForm services={this.state.services} />
               </div>
             <button onClick={this.handleClose} > Close </button>
-          </ReactModal>
-        </div>
-      );
-    }
-    else{
-      return (
-        <div id="cesium-service-widget">
+          </ReactModal> 
           <button onClick={this.handleOpen}> Cesium Service </button>
           </div>
         );
-    }
   }
 }
+
+
 export default CesiumServiceWidget;

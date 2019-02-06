@@ -13,14 +13,12 @@ class ServiceListForm extends React.Component{
     constructor(props){
       super(props);
       this.state = {
-        isSelected : false,
         services : [],
         chosen : null,
       }
     }
 
     componentWillMount = () => {
-      console.log(this.props.services);
 
       let services = this.props.services ? this.props.services
                                          : this.state.services;
