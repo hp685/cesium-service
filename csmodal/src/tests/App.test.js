@@ -48,7 +48,7 @@ describe("Assertions on ServiceList component", () => {
 
     test("Load default list and choose options one at a time ", async () => {
         let expectedResult = services.map(e => {
-            return {"label": e, "value": e};
+            return {key: e, value: e, text: e};
         });
         const instance = getInstance();
         await instance.componentWillMount();
@@ -57,10 +57,7 @@ describe("Assertions on ServiceList component", () => {
         expect(instance.state.services.length)
             .toEqual(expectedResult.length);
         expect(instance.state.chosen).toBe(null);
-        services.map((e) => {
-            instance.handleChange(e);
-            expect(instance.state.chosen).toBe(e);
-        });
+        
     });
 });
 
@@ -70,16 +67,16 @@ describe("Assertions on Cesium component", () => {
     let data ={
         "A": {
             fields : [
-            {key: "serial-number", label: "SN", required: true},
-            {key: "uut", label: "UUT Type", required: true},
-            {key: "area", label: "Area", required:true},
-            {key: "timeframe", label: "Timeframe", required: false},
+            {key: "serial-number", value: "SN", required: true, },
+            {key: "uut", value: "UUT Type", required: true},
+            {key: "area", value: "Area", required:true},
+            {key: "timeframe", value: "Timeframe", required: false},
             ],
         }, 
         "B": {
             fields: [
-            {key: "serial-number", label: "SN", required: true},
-            {key: "uut", label: "UUT", required: true},
+            {key: "serial-number", value: "SN", required: true},
+            {key: "uut", value: "UUT", required: true},
             ],
         },
     };
@@ -105,8 +102,9 @@ describe("Assertions on Cesium component", () => {
 
     test("Assert fields corresponding to chosen input", () => {
         const instance = getInstance();
-        let serviceInput = {label: service, value: service};
-        expect(instance.formFromFields(data, serviceInput).length)
+        let serviceInput = {service: service};
+
+        expect(instance.formFromFields(data, service).length)
                 .toEqual(data[service].fields.length + 1);  // 1 for the extra field of submit button
     });   
 });
