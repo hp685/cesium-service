@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactModal from 'react-modal';
 import ServiceListForm from './serviceList';
-
-
+import { Button, Modal, Image, Segment} from 'semantic-ui-react';
 
 class CesiumServiceWidget extends React.Component{
 
@@ -43,19 +42,21 @@ class CesiumServiceWidget extends React.Component{
   }
 
   render(){
+
       return (
-        <div className="modal">
-          <ReactModal isOpen={this.state.showModal}>
-              <div id="service-list">
+        <Modal centered={false} trigger={
+          <Button> Cesium </Button>
+        }
+        basic size='small'>
+        <Modal.Header content='Choose a service' />
+          <Modal.Content>
+              <Segment>
                 <ServiceListForm services={this.state.services} />
-              </div>
-            <button onClick={this.handleClose} > Close </button>
-          </ReactModal> 
-          <button onClick={this.handleOpen}> Cesium Service </button>
-          </div>
+              </Segment>
+          </Modal.Content>
+        </Modal>
         );
   }
 }
-
 
 export default CesiumServiceWidget;

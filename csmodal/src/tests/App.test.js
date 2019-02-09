@@ -5,7 +5,7 @@ import CesiumRequestForm from '../cesium';
 import { create } from 'react-test-renderer';
 
 
-describe("CesiumsServiceWidget Component tests", () => {
+describe("Assertions on CesiumServiceWidget Component", () => {
     
     const getInstance = () => {
         
@@ -17,15 +17,17 @@ describe("CesiumsServiceWidget Component tests", () => {
         return instance;
     }
 
-    test("shows cesium service button", () => {
+    test("Shows cesium service button", () => {
         const instance = getInstance();
-        expect(instance.state.showModal).toBe(false);
+        expect(instance.state.showModal)
+            .toBe(false);
     });
     
     test("Assert state before component mounts", async () => {
         const instance = getInstance();
         await instance.componentWillMount();
-        expect(instance.state.services.length).toBeGreaterThan(0);
+        expect(instance.state.services.length)
+            .toBeGreaterThan(0);
     });
 
 });
@@ -35,7 +37,9 @@ describe("Assertions on ServiceList component", () => {
     const getInstance = () => {
         let instance;
         if (!instance){
-            const component = create(<ServiceListForm services={services} />);
+            const component = create(
+            <ServiceListForm services={services} />
+            );
             instance = component.getInstance();
         }
         return instance;
@@ -48,8 +52,10 @@ describe("Assertions on ServiceList component", () => {
         });
         const instance = getInstance();
         await instance.componentWillMount();
-        expect(instance.state.services).toEqual(expectedResult);
-        expect(instance.state.services.length).toEqual(expectedResult.length);
+        expect(instance.state.services)
+            .toEqual(expectedResult);
+        expect(instance.state.services.length)
+            .toEqual(expectedResult.length);
         expect(instance.state.chosen).toBe(null);
         services.map((e) => {
             instance.handleChange(e);
@@ -59,7 +65,7 @@ describe("Assertions on ServiceList component", () => {
 });
 
 
-describe("Assertions in Cesium component", () => {
+describe("Assertions on Cesium component", () => {
 
     let data ={
         "A": {
@@ -88,21 +94,21 @@ describe("Assertions in Cesium component", () => {
         return instance;
     }
 
-    test("assert default state", async () => {
+    test("Assert default state", async () => {
         const instance = getInstance();
-        expect(instance.state.userInput).toEqual([]);
-        expect(instance.state.formData).toEqual({});
+        expect(instance.state.userInput)
+            .toEqual([]);
+        expect(instance.state.formData)
+            .toEqual({});
 
     });
 
-    test("assert fields corresponding to chosen input", () => {
+    test("Assert fields corresponding to chosen input", () => {
         const instance = getInstance();
         let serviceInput = {label: service, value: service};
         expect(instance.formFromFields(data, serviceInput).length)
                 .toEqual(data[service].fields.length + 1);  // 1 for the extra field of submit button
-    });
-
-   
+    });   
 });
 
 

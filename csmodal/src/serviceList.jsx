@@ -1,12 +1,12 @@
 import React from 'react';
-import Select from 'react-select';
+import { Dropdown }  from 'semantic-ui-react';
 import CesiumRequestForm from './cesium';
 
 
 const servicePlaceholder = "Select cesium service";
 const options = [
-  {label: 'areacheck', value: 'areacheck'},
-  {label: 'snpull', value: 'snpull'},
+  {key: 'areacheck', value: 'areacheck', text: 'areacheck'},
+  {key: 'snpull', value: 'snpull', text: 'snpull'},
 ]
 class ServiceListForm extends React.Component{
 
@@ -25,8 +25,9 @@ class ServiceListForm extends React.Component{
 
        let options = services.map((e) => {
          return {
-           label: e,
-           value: e
+           key: e,
+           value: e,
+           text: e
          }
 
       });
@@ -36,9 +37,9 @@ class ServiceListForm extends React.Component{
       });
     }
 
-    handleChange = (option) => {
+    handleChange = (_, { value }) => {
       this.setState({
-        chosen : option,
+        chosen : value,
       });
     }
 
@@ -46,10 +47,11 @@ class ServiceListForm extends React.Component{
 
       return (
         <div>
-          <Select value={this.state.chosen}
+          <Dropdown fluid search selection
+            placeholder={servicePlaceholder}
             options={this.state.services}
             onChange={this.handleChange}
-            placeholder={servicePlaceholder}
+            
             />
 
         {this.state.chosen &&
