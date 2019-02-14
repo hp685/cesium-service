@@ -1,14 +1,14 @@
 import React from 'react';
 import { Dropdown }  from 'semantic-ui-react';
 import CesiumRequestForm from './cesium';
-
+import connect from 'react-redux';
 
 const servicePlaceholder = "Select cesium service";
 const options = [
   {key: 'areacheck', value: 'areacheck', text: 'areacheck'},
   {key: 'snpull', value: 'snpull', text: 'snpull'},
 ]
-class ServiceListForm extends React.Component{
+class VisibleServiceListForm extends React.Component{
 
     constructor(props){
       super(props);
@@ -23,7 +23,7 @@ class ServiceListForm extends React.Component{
       let services = this.props.services ? this.props.services
                                          : this.state.services;
 
-       let options = services.map((e) => {
+      let options = services.map((e) => {
          return {
            key: e,
            value: e,
@@ -50,8 +50,7 @@ class ServiceListForm extends React.Component{
           <Dropdown fluid search selection
             placeholder={servicePlaceholder}
             options={this.state.services}
-            onChange={this.handleChange}
-            
+            onChange={this.handleChange}        
             />
 
         {this.state.chosen &&
@@ -65,4 +64,13 @@ class ServiceListForm extends React.Component{
     }
 }
 
-export default ServiceListForm;
+const mapStateToProps = (state) => {
+  return {
+    services:state.services
+  }
+}
+
+const VisibleServiceListForm = connect(
+  mapStateToProps
+)(ServiceListForm);
+export default VisibleServiceListForm;

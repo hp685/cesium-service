@@ -3,6 +3,7 @@ import React from 'react';
 import ServiceResponse from './serviceResponse';
 import { ScaleLoader } from 'react-spinners';
 import {Button, Form, Label, Segment, Divider}  from 'semantic-ui-react';
+import connect from 'react-redux';
 
 
 // sleep time expects milliseconds
@@ -144,8 +145,6 @@ render(){
 
   return (
     <div>
-
-
         <Segment>
           <Form onSubmit={this.handleSubmit}>
             {this.formFromFields(this.state.requestData, this.props.service)}
@@ -159,18 +158,27 @@ render(){
           }
       </Segment>
           {
-            !this.state.isLoading && this.state.serviceResponse && 
-            
+            !this.state.isLoading && this.state.serviceResponse &&            
             <div>
                 <ServiceResponse response={this.state.serviceResponse}/>
 
             </div>
-           
           } 
-
       </div>
           );
   }
 }
 
-export default CesiumRequestForm;
+const mapStateToProps = (state) => {
+  return {
+    services: state.services
+  }
+}
+
+
+
+const VisibleCesiumRequestForm = connect(
+  mapStateToProps,
+)(CesiumRequestForm);
+
+export default VisibleCesiumRequestForm;
