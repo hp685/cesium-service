@@ -1,7 +1,7 @@
 import React from 'react';
-import ReactModal from 'react-modal';
 import ServiceListForm from './serviceList';
-import { Button, Modal, Image, Segment} from 'semantic-ui-react';
+import { Button, Modal, Segment} from 'semantic-ui-react';
+import connect from 'react-redux';
 
 class CesiumServiceWidget extends React.Component{
 
@@ -14,7 +14,7 @@ class CesiumServiceWidget extends React.Component{
       super();
       this.state = {
         showModal : false,
-      }
+      }      
     }
 
 
@@ -40,6 +40,7 @@ class CesiumServiceWidget extends React.Component{
 
       this.setState({services: this.services});
   }
+  
 
   render(){
 
@@ -58,5 +59,10 @@ class CesiumServiceWidget extends React.Component{
         );
   }
 }
+
+
+const VisibleCesiumServiceWidget = connect(
+  null
+)(CesiumServiceWidget);
 
 export default CesiumServiceWidget;

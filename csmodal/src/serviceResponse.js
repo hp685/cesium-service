@@ -34,4 +34,6 @@ class ServiceResponse extends React.Component{
         );
     }
 }
+
 export default ServiceResponse;
+

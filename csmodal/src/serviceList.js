@@ -1,14 +1,11 @@
 import React from 'react';
 import { Dropdown }  from 'semantic-ui-react';
-import CesiumRequestForm from './cesium';
-import connect from 'react-redux';
-
+import VisibleCesiumRequestForm from './cesium';
+import {connect} from 'react-redux';
+import {chooseService} from './actions';
 const servicePlaceholder = "Select cesium service";
-const options = [
-  {key: 'areacheck', value: 'areacheck', text: 'areacheck'},
-  {key: 'snpull', value: 'snpull', text: 'snpull'},
-]
-class VisibleServiceListForm extends React.Component{
+
+class ServiceListForm extends React.Component{
 
     constructor(props){
       super(props);
@@ -32,15 +29,7 @@ class VisibleServiceListForm extends React.Component{
 
       });
 
-      this.setState({
-        services: options
-      });
-    }
-
-    handleChange = (_, { value }) => {
-      this.setState({
-        chosen : value,
-      });
+      this.setState({services: options});
     }
 
     render(){
@@ -50,12 +39,13 @@ class VisibleServiceListForm extends React.Component{
           <Dropdown fluid search selection
             placeholder={servicePlaceholder}
             options={this.state.services}
-            onChange={this.handleChange}        
+            onChange={this.props.handleChange}
+            defaultValue={this.props.selectedService}
             />
 
-        {this.state.chosen &&
+        {this.props.selectedService &&
           <div>
-            <CesiumRequestForm service={this.state.chosen} />
+            <VisibleCesiumRequestForm />
           </div>
         }
         </div>
@@ -66,11 +56,20 @@ class VisibleServiceListForm extends React.Component{
 
 const mapStateToProps = (state) => {
   return {
-    services:state.services
+    services: state.services,
+    selectedService: state.selectedService
+  }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleChange: (_ , {value}) => {
+      dispatch(chooseService(value));
+    }
   }
 }
 
 const VisibleServiceListForm = connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps,
 )(ServiceListForm);
 export default VisibleServiceListForm;

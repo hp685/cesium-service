@@ -1,0 +1,26 @@
+{
+  "services" : [],
+  "selectedService": null,
+  "serviceFormData": {
+    "fields" : [
+        {
+          "Serial Number" : "SN123"
+        },
+        {
+          "PID/uutype": "PIDxyz"
+        },
+        {
+          "TimeFrame": "6m"
+        }
+      ]  
+  },
+  
+  "serviceResponse" : {
+    "code" : "OK",
+    "data" : {
+      "serial number" : "SN123",
+      "area" : "PCBFT",
+      "result-pass-fail": "PASS"
+    }
+  }
+}
