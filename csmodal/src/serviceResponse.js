@@ -15,8 +15,19 @@ class ServiceResponse extends React.Component{
 
     displayResponse = (response) => {
         let rows = []
-        rows.push(<Form.Field><Label color="grey"> Response Code: {response["code"]}  </Label></Form.Field> );
-        rows.push(<Form.Field><Label color="grey"> Data: {Object.values(response["results"])}</Label></Form.Field>);
+        rows.push(
+          <Form.Field>
+            <Label color="grey">
+              Response Code: {response["code"]}
+            </Label>
+          </Form.Field>
+        );
+        rows.push(
+          <Form.Field>
+            <Label color="grey">
+              Data: {Object.values(response["results"])}
+            </Label>
+          </Form.Field>);
         return rows;
     }
     render(){
@@ -36,4 +47,3 @@ class ServiceResponse extends React.Component{
 }
 
 export default ServiceResponse;
-

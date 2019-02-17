@@ -1,11 +1,10 @@
 import React from 'react';
 //import InputRow from 'inputElements';
-import ServiceResponse from './serviceResponse';
+import VisibleServiceResponse from './serviceResponse';
 import { ScaleLoader } from 'react-spinners';
-import {Button, Form, Label, Segment, Divider}  from 'semantic-ui-react';
-import connect from 'react-redux';
-
-
+import { Button, Form, Label, Segment, Divider }  from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { chooseService, setField, clearForm } from './actions';
 // sleep time expects milliseconds
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
@@ -14,7 +13,6 @@ function sleep (time) {
 
 let data =
   {
-    
       "areacheck": {
         fields : [
           {key: "serial-number", label: "SN", required: true},
@@ -23,8 +21,8 @@ let data =
           {key: "timeframe", label: "Timeframe", required: false},
         ],
       },
-    
-      "snpull": {
+
+      "pidvid": {
         fields: [
           {key: "serial-number", label: "SN", required: true},
           {key: "uut", label: "UUT", required: true},
@@ -48,33 +46,42 @@ let serviceResponse = {
 
 class CesiumRequestForm extends React.Component{
 
-  constructor(){
-    super();
+  constructor(props){
+    super(props);
     this.state = {
         requestData: null,
         userInput: [],
         formData: {},
         serviceResponse: null,
         isLoading:  false,
+        clearForm : false
     };
+
   }
 
 
 componentWillMount(){
   this.setState({
-    service: this.props.service && this.props.service.value,
+    service: this.props.service,
   });
   this.serviceSchemaRequest();
-  
+
 }
 
 componentWillUpdate(){
+  if(!this.props.schema && !this.state.clearForm){
+    this.setState({
+      clearForm: true
+    })
+  }
+
   if(this.state.serviceResponse){
     this.setState({
       serviceResponse: null,
     });
   }
 };
+
 serviceSchemaRequest = () => {
   /*Query backend to obtain schema for this.state.service*/
   /* Hard coded for now*/
@@ -82,7 +89,7 @@ serviceSchemaRequest = () => {
       requestData: data,
   });
 
- 
+
 }
 
 handleSubmit = (e) => {
@@ -100,29 +107,31 @@ handleSubmit = (e) => {
     });
   });
 }
- 
 
-handleChange = (e) => {
-  let formData = this.state.formData;
-  formData[e.target.name] = e.target.value
-  this.setState({
-    formData: formData
-  })
-}
+
+// handleChange = (e) => {
+//   let formData = this.state.formData;
+//   formData[e.target.name] = e.target.value
+//   this.setState({
+//     formData: formData
+//   })
+// }
 
 formFromFields = (data, service) => {
   let rows = [];
   data = service && data[service];
- 
+  console.log('props in cesium', this.props)
+
   if(data){
         data.fields.map((row) => {
         rows.push(
         <Form.Field>
           <Label color="grey"> {row.label} </Label>
-          <input placeholder={row.key} name={row.key} 
-                             key={row.key} 
-                             id={row.key} 
-                             onChange={this.handleChange}
+          <input placeholder={row.key} name={row.key}
+                             key={row.key}
+                             id={row.key}
+                             onChange={this.props.handleChange}
+                             value={(this.props.schema && this.props.schema[row.key]) ? this.props.schema[row.key]: null}
                               />
         </Form.Field>
         );
@@ -130,10 +139,18 @@ formFromFields = (data, service) => {
   }
 
   if (data && data.fields.length){
-      rows.push(<Button type="submit">
-                  Submit
-               </Button>
-               );
+      rows.push(
+        <Button type="submit">
+          Submit
+        </Button>
+      );
+      rows.push(
+        <Button
+        onClick={this.props.reset}
+        >
+          Reset
+        </Button>
+      )
   }
 
   return rows;
@@ -142,43 +159,56 @@ formFromFields = (data, service) => {
 
 
 render(){
-
+  console.log(this.props, 'props in cesium render')
   return (
     <div>
         <Segment>
           <Form onSubmit={this.handleSubmit}>
             {this.formFromFields(this.state.requestData, this.props.service)}
           </Form>
-
           {
-            this.state.isLoading && 
+            this.state.isLoading &&
               <div>
                 <ScaleLoader color="green"/>
               </div>
           }
       </Segment>
           {
-            !this.state.isLoading && this.state.serviceResponse &&            
+            !this.state.isLoading && this.state.serviceResponse &&
             <div>
-                <ServiceResponse response={this.state.serviceResponse}/>
+                <VisibleServiceResponse response={this.state.serviceResponse}/>
 
             </div>
-          } 
+          }
       </div>
           );
   }
 }
 
 const mapStateToProps = (state) => {
+  console.log('state in mapStateToProps', state);
   return {
-    services: state.services
+    service: state.selectedService,
+    schema : state.schema[state.selectedService]
+
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleChange: (e) => {
+      dispatch(setField(e.target.name, e.target.value));
+    },
 
+    reset: (e) => {
+      e.preventDefault();
+      dispatch(clearForm());
+    }
+  }
+}
 
 const VisibleCesiumRequestForm = connect(
-  mapStateToProps,
+  mapStateToProps, mapDispatchToProps
 )(CesiumRequestForm);
 
 export default VisibleCesiumRequestForm;

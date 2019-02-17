@@ -1,7 +1,9 @@
 import React from 'react';
-import ServiceListForm from './serviceList';
+import VisibleServiceListForm from './serviceList';
 import { Button, Modal, Segment} from 'semantic-ui-react';
-import connect from 'react-redux';
+import { connect } from 'react-redux';
+import { services } from './data';
+import { setServiceList } from './actions';
 
 class CesiumServiceWidget extends React.Component{
 
@@ -14,8 +16,9 @@ class CesiumServiceWidget extends React.Component{
       super();
       this.state = {
         showModal : false,
-      }      
+      }
     }
+
 
 
   handleOpen = () => {
@@ -31,7 +34,7 @@ class CesiumServiceWidget extends React.Component{
   }
 
   serviceListRequest = () => {
-
+    //dispatch(setServiceList(services));
   }
 
   componentWillMount = () => {
@@ -40,7 +43,7 @@ class CesiumServiceWidget extends React.Component{
 
       this.setState({services: this.services});
   }
-  
+
 
   render(){
 
@@ -48,21 +51,18 @@ class CesiumServiceWidget extends React.Component{
         <Modal centered={false} trigger={
           <Button> Cesium </Button>
         }
-        basic size='small'>
+        basic size='small'
+        >
         <Modal.Header content='Choose a service' />
           <Modal.Content>
               <Segment>
-                <ServiceListForm services={this.state.services} />
+                <VisibleServiceListForm services={this.props.services} />
               </Segment>
           </Modal.Content>
         </Modal>
         );
-  }
+      }
 }
 
-
-const VisibleCesiumServiceWidget = connect(
-  null
-)(CesiumServiceWidget);
-
-export default CesiumServiceWidget;
+const VisibleCesiumServiceWidget = connect()(CesiumServiceWidget);
+export default VisibleCesiumServiceWidget;

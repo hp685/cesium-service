@@ -1,18 +1,16 @@
 {
   "services" : [],
   "selectedService": null,
-  "serviceFormData": {
-    "fields" : [
-        {
-          "Serial Number" : "SN123"
-        },
-        {
-          "PID/uutype": "PIDxyz"
-        },
-        {
-          "TimeFrame": "6m"
-        }
-      ]  
+  "schema": {
+      "areacheck": {
+            "Serial Number" : "SN123",
+            "PID/uutype": "PIDxyz",
+            "TimeFrame": "6m"
+      },
+      "snpull": {
+        "Serial Number": "SN234",
+        "PID": "CAT9K"
+      }  
   },
   
   "serviceResponse" : {
