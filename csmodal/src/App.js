@@ -19,8 +19,6 @@ class CesiumServiceWidget extends React.Component{
       }
     }
 
-
-
   handleOpen = () => {
     this.setState({
       showModal: true
@@ -46,7 +44,6 @@ class CesiumServiceWidget extends React.Component{
 
 
   render(){
-
       return (
         <Modal centered={false} trigger={
           <Button> Cesium </Button>

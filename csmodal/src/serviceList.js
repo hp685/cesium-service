@@ -33,7 +33,6 @@ class ServiceListForm extends React.Component{
     }
 
     render(){
-      console.log('default value in render', this.props.selectedService, this.props)
       return (
         <div>
           <Dropdown fluid search selection
@@ -50,13 +49,11 @@ class ServiceListForm extends React.Component{
           </div>
         }
         </div>
-
     );
     }
 }
 
 const mapStateToProps = (state) => {
-  console.log('service list', state.selectedService)
   return {
     services: state.services,
     selectedService: state.selectedService
