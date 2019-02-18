@@ -69,11 +69,6 @@ componentWillMount(){
 }
 
 componentWillUpdate(){
-  if(!this.props.schema && !this.state.clearForm){
-    this.setState({
-      clearForm: true
-    })
-  }
 
   if(this.state.serviceResponse){
     this.setState({
@@ -131,7 +126,7 @@ formFromFields = (data, service) => {
                              key={row.key}
                              id={row.key}
                              onChange={this.props.handleChange}
-                             value={(this.props.schema && this.props.schema[row.key]) ? this.props.schema[row.key]: null}
+                             value={(this.props.schema && this.props.schema[row.key]) ? this.props.schema[row.key]: ""}
                               />
         </Form.Field>
         );
