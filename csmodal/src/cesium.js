@@ -5,7 +5,8 @@ import { ScaleLoader } from 'react-spinners';
 import { Button, Form, Label, Segment, Divider }  from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { chooseService, setField, clearForm } from './actions';
-// sleep time expects milliseconds
+
+
 function sleep (time) {
   return new Promise((resolve) => setTimeout(resolve, time));
 }
@@ -102,15 +103,6 @@ handleSubmit = (e) => {
     });
   });
 }
-
-
-// handleChange = (e) => {
-//   let formData = this.state.formData;
-//   formData[e.target.name] = e.target.value
-//   this.setState({
-//     formData: formData
-//   })
-// }
 
 formFromFields = (data, service) => {
   let rows = [];
