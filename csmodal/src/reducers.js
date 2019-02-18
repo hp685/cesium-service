@@ -38,7 +38,8 @@ const cesiumApp = createReducer(defaultState, {
 
   reset_form: (state, action) => {
     state.schema[state.selectedService] = {};
-    state.clearForm = true
+    state.clearForm = true;
+    state.selectedService = "";
   }
 
 })

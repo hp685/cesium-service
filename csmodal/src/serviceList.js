@@ -33,14 +33,15 @@ class ServiceListForm extends React.Component{
     }
 
     render(){
-
+      console.log('default value in render', this.props.selectedService, this.props)
       return (
         <div>
           <Dropdown fluid search selection
             placeholder={servicePlaceholder}
             options={this.state.services}
             onChange={this.props.handleChange}
-            defaultValue={this.props.selectedService}
+            value={this.props.selectedService}
+            clearable={true}
             />
 
         {this.props.selectedService &&
@@ -55,6 +56,7 @@ class ServiceListForm extends React.Component{
 }
 
 const mapStateToProps = (state) => {
+  console.log('service list', state.selectedService)
   return {
     services: state.services,
     selectedService: state.selectedService
