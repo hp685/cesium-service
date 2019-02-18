@@ -17,19 +17,15 @@ const cesiumApp = createReducer(defaultState, {
   },
 
   set_field: (state, action) => {
-    console.log('setting field', state.selectedService, action.key, action.value)
-    //state.schema[state.selectedService][action.key] = action.value
     let schema = state.schema
     let serviceFields = {}
     serviceFields[action.key] = action.value
     let newFields = {...state.schema[state.selectedService], ...serviceFields}
     state.schema[state.selectedService] = newFields
-
-
   },
 
   set_response: (state, action) => {
-
+    // TODO: add response reducer
   },
 
   choose_service: (state, action) => {
