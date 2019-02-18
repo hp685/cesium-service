@@ -115,7 +115,6 @@ handleSubmit = (e) => {
 formFromFields = (data, service) => {
   let rows = [];
   data = service && data[service];
-  console.log('props in cesium', this.props)
 
   if(data){
         data.fields.map((row) => {
@@ -154,7 +153,6 @@ formFromFields = (data, service) => {
 
 
 render(){
-  console.log(this.props, 'props in cesium render')
   return (
     <div>
         <Segment>
@@ -181,7 +179,6 @@ render(){
 }
 
 const mapStateToProps = (state) => {
-  console.log('state in mapStateToProps', state);
   return {
     service: state.selectedService,
     schema : state.schema[state.selectedService]
