@@ -28,15 +28,6 @@ class ServiceResponse extends React.Component{
 
         console.log('props', response["code"]);
         
-        if (response["code"] === 'OK'){
-            return(
-            <div>
-              <p> {this.displayServiceResponse(response.results[0])}</p>
-            </div>
-        );}
-
-        if (response["code"] !== 'OK')
-        {   
             const response_pane = [{ menuItem: 'Response', pane: (
                 <Tab.Pane key='tab4'>          
                   <List>
@@ -50,8 +41,7 @@ class ServiceResponse extends React.Component{
             <Tab.Pane key='tab4'>          
             {this.displayServiceResponse(response.debug_info[0])}
           </Tab.Pane>)}]
-            return (<div><Tab panes={response_pane} renderActiveOnly={false} /></div>);
-        }   
+            return (<div><Tab panes={response_pane} renderActiveOnly={false} /></div>); 
         
     }
 
