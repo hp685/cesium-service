@@ -33,7 +33,7 @@ let data =
   };
 
 let serviceResponse = {
-  "code" : "OK",
+  "code" : "fail",
   "results": [
     {
       "serial_number" : "xxx",
@@ -41,7 +41,21 @@ let serviceResponse = {
       "test_area" : "PCBP2",
       "timestamp" : "02/11/2019",
     }
-  ]
+  ],
+  "error_message": "Invalid UUT Type",
+  "operator": false,
+  "engineer": true,
+  "service": 'pidvid',  
+  "debug_info":[
+    {
+      "apolloprod": "austrpd2",
+      "local csa": "fxccsmapp1", 
+      "regional_csa": "allncsmapp1",
+      "uuid": "aabdas836ajhdb",
+      "date": "07-4-2019 3:43 PST",
+      "time taken": "10s"
+      }
+    ]
 }
 
 
