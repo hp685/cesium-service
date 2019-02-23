@@ -33,7 +33,7 @@ let data =
   };
 
 let serviceResponse = {
-  "code" : "fail",
+  "code" : "OK",
   "results": [
     {
       "serial_number" : "xxx",
