@@ -1,1 +1,1 @@
-React Modal component for services
+React Modal component for manufacturing traceability services
